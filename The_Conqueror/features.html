@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features - The Conquerors</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1e1e2f, #3a3a6f);
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 4px 10px rgba(0, 255, 255, 0.5);
+        }
+
+        #nav-part2 h4 {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        #nav-part2 a {
+            text-decoration: none;
+            color: white;
+            transition: 0.3s;
+        }
+
+        #nav-part2 a:hover {
+            color: cyan;
+        }
+
+        #features {
+            padding: 50px 20px;
+        }
+
+        .feature-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            width: 280px;
+            text-align: center;
+            box-shadow: 0px 0px 15px rgba(0, 255, 255, 0.6);
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 0px 25px rgba(0, 255, 255, 0.9);
+        }
+
+        footer {
+            padding: 15px;
+            margin-top: 20px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <h2>THE CONQUERORS</h2>
+            <div id="nav-part2">
+                <h4><a href="index.html">Home</a></h4>
+                <h4><a href="books.html">Books</a></h4>
+                <h4><a href="features.html">Features</a></h4>
+                <h4><a href="#page4">AI Chatbot</a></h4>
+            </div>
+        </nav>
+    </header>
+    
+    <section id="features">
+        <h1>Platform Features</h1>
+        <div class="feature-list">
+            <div class="feature-card">
+                <h2>🔹 AI-Powered Chatbot</h2>
+                <p>Interact with an advanced AI chatbot that assists with learning and daily tasks.</p>
+            </div>
+            <div class="feature-card">
+                <h2>🔹 Futuristic Login Page</h2>
+                <p>Cyberpunk-themed animated login with dynamic interactions.</p>
+            </div>
+            <div class="feature-card">
+                <h2>🔹 Book Collection</h2>
+                <p>Explore a curated list of books with detailed descriptions.</p>
+            </div>
+            <div class="feature-card">
+                <h2>🔹 Sleep Detection Alarm</h2>
+                <p>AI-driven system detects drowsiness and wakes you up with a smart alarm.</p>
+            </div>
+            <div class="feature-card">
+                <h2>🔹 Interactive 3D Elements</h2>
+                <p>Immersive 3D animations and futuristic design elements for an engaging experience.</p>
+            </div>
+            <div class="feature-card">
+                <h2>🔹 Dynamic Backgrounds</h2>
+                <p>Live animated backgrounds that enhance the user interface.</p>
+            </div>
+            <div class="feature-card">
+                <h2>🔹 Voice & Gesture Control</h2>
+                <p>Future integration for hands-free interactions using AI-driven voice and gesture recognition.</p>
+            </div>
+            <div class="feature-card">
+                <h2>🔹 AI Models Used</h2>
+                <p>- Ollama AI (Llama 2 for chatbot interactions)<br>
+                   - TensorFlow.js (Facemesh for sleep detection)<br>
+                   - Web Speech API (Voice response and interaction)</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 The Conquerors. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

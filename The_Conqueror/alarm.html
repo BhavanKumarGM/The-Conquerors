@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleep Detection System</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/facemesh"></script>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; background: #111; color: #fff; }
+        video { display: block; margin: auto; border: 2px solid #0f0; border-radius: 10px; }
+        .status { font-size: 20px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <h1>Sleep Detection Alarm System</h1>
+    <video id="webcam" autoplay></video>
+    <p id="status" class="status">🔍 Detecting face...</p>
+    <p id="countdown" class="status"></p>
+    <p id="fileContent" class="status"></p>
+
+    <audio id="alarmSound" src="alarm.mp3.mpeg"></audio> <!-- Alarm file -->
+
+    <script>
+        let video = document.getElementById("webcam");
+        let statusText = document.getElementById("status");
+        let countdownText = document.getElementById("countdown");
+        let fileContentText = document.getElementById("fileContent");
+        let alarmSound = document.getElementById("alarmSound");
+
+        let EAR_THRESHOLD = 0.25;
+        let CLOSED_DURATION = 10000; // 10 seconds
+        let closeStartTime = null;
+        let awake = true;
+        let alarmPlaying = false;
+
+        function playAlarm() {
+            if (!alarmPlaying) {
+                alarmSound.loop = false;
+                alarmSound.play().catch(error => console.log("Error playing alarm:", error));
+                alarmPlaying = true;
+                setTimeout(() => stopAlarm(), 10000);
+            }
+        }
+
+        function stopAlarm() {
+            alarmSound.pause();
+            alarmSound.currentTime = 0;
+            alarmPlaying = false;
+        }
+
+        function readFile() {
+            fetch("example.txt")
+                .then(response => response.text())
+                .then(text => {
+                    fileContentText.innerText = `📖 File Content:\n${text}`;
+                    speakText(text);
+                })
+                .catch(error => {
+                    fileContentText.innerText = "❌ Error: File not found!";
+                    speakText("Error: File not found!");
+                });
+        }
+
+        function speakText(text) {
+            let speech = new SpeechSynthesisUtterance(text);
+            speech.lang = "en-US";
+            speech.rate = 1;
+            speech.pitch = 1;
+            window.speechSynthesis.speak(speech);
+        }
+
+        async function setupCamera() {
+            let stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            video.srcObject = stream;
+            return new Promise(resolve => video.onloadedmetadata = resolve);
+        }
+
+        async function detectFace() {
+            await setupCamera();
+            const model = await facemesh.load();
+
+            playAlarm(); // Play alarm immediately when page loads
+
+            async function processFrame() {
+                const predictions = await model.estimateFaces(video);
+
+                if (predictions.length > 0) {
+                    statusText.innerText = "✅ Face Detected";
+                    let keypoints = predictions[0].scaledMesh;
+
+                    let leftEye = getEyePoints(keypoints, [33, 160, 158, 133, 153, 144]);
+                    let rightEye = getEyePoints(keypoints, [362, 385, 387, 263, 373, 380]);
+
+                    let leftEAR = calculateEAR(leftEye);
+                    let rightEAR = calculateEAR(rightEye);
+                    let avgEAR = (leftEAR + rightEAR) / 2.0;
+
+                    if (avgEAR < EAR_THRESHOLD) {
+                        if (closeStartTime === null) {
+                            closeStartTime = Date.now();
+                        } else {
+                            let elapsed = Math.floor((Date.now() - closeStartTime) / 1000);
+                            countdownText.innerText = `⏳ Eyes closed for ${elapsed} seconds...`;
+
+                            if (elapsed >= 10 && !alarmPlaying) {
+                                statusText.innerText = "⚠ Sleep Detected! Alarm Activated!";
+                                playAlarm();
+                                awake = false;
+                            }
+                        }
+                    } else {
+                        closeStartTime = null;
+                        countdownText.innerText = "";
+                        if (!awake) {
+                            statusText.innerText = "✅ Awake - Alarm Stopped";
+                            stopAlarm();
+                            awake = true;
+                            readFile();
+                        }
+                    }
+                } else {
+                    statusText.innerText = "🔍 Detecting face...";
+                    countdownText.innerText = "";
+                }
+
+                requestAnimationFrame(processFrame);
+            }
+
+            processFrame();
+        }
+
+        function getEyePoints(keypoints, indices) {
+            return indices.map(i => keypoints[i]);
+        }
+
+        function calculateEAR(eye) {
+            if (eye.length !== 6) return 1.0;
+            let A = distance(eye[1], eye[5]);
+            let B = distance(eye[2], eye[4]);
+            let C = distance(eye[0], eye[3]) + 1e-6;
+            return (A + B) / (2.0 * C);
+        }
+
+        function distance(pt1, pt2) {
+            return Math.sqrt(Math.pow(pt1[0] - pt2[0], 2) + Math.pow(pt1[1] - pt2[1], 2));
+        }
+
+        detectFace();
+    </script>
+
+</body>
+</html>

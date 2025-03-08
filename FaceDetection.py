@@ -9,7 +9,7 @@ from scipy.spatial import distance
 
 # Initialize Mediapipe Face Mesh
 mp_face_mesh = mp.solutions.face_mesh
-mp_drawing = mp.solutions.drawing_utils  # Drawing utilities
+mp_drawing = mp.solutions.drawing_utils  
 face_mesh = mp.solutions.face_mesh.FaceMesh(static_image_mode=False, max_num_faces=1, refine_landmarks=True)
 
 # Initialize Text-to-Speech Engine

@@ -18,12 +18,13 @@ The-Conquerors-master
     ├── index.html              # Home page
     ├── login.html              # Login page
     ├── books.html              # Books feature page
-│   ├── features.html           # Features list
-│   ├── style.css / login.css / books.css
-│   ├── script.js               # Client-side JavaScript
-│   ├── background.mp4 / video.mp4
-│   ├── alarm.html / alarm.mp3.mpeg
-│   └── fonts, icons, assets
-│
-└── The_Conquerores_Main/
+    ├── features.html           # Features list
+    ├── style.css / login.css / books.css
+    ├── script.js               # Client-side JavaScript
+    ├── background.mp4 / video.mp4
+    ├── alarm.html / alarm.mp3.mpeg
+    ├── fonts, icons, assets
+
+├── The_Conquerores_Main/
+
     └── README.md               # Additional documentation

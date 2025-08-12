@@ -1,7 +1,9 @@
 The-Conquerors-master
 
 ├── FaceDetection.py           # Detects faces using OpenCV
+
 ├── TASK_6.py                   # Task 6 script
+
 ├── Task2.py - Task6.py         # Various Python exercises
 ├── Task4_Game1.py / Task4_Game2.py  # Mini-games
 ├── alarm222.py                 # Alarm clock script

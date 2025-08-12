@@ -5,15 +5,19 @@ The-Conquerors-master
 ├── TASK_6.py                   # Task 6 script
 
 ├── Task2.py - Task6.py         # Various Python exercises
-├── Task4_Game1.py / Task4_Game2.py  # Mini-games
+
+├── Task4_Game1.py / Task4_Game2.py  # Mini-games4
+
 ├── alarm222.py                 # Alarm clock script
+
 ├── tasks.json                  # Task data for scripts
-│
+
 ├── The_Conqueror/              # Flask web app
-│   ├── app.py                  # Main Flask application
-│   ├── index.html              # Home page
-│   ├── login.html              # Login page
-│   ├── books.html              # Books feature page
+
+    ├── app.py                  # Main Flask application
+    ├── index.html              # Home page
+    ├── login.html              # Login page
+    ├── books.html              # Books feature page
 │   ├── features.html           # Features list
 │   ├── style.css / login.css / books.css
 │   ├── script.js               # Client-side JavaScript
